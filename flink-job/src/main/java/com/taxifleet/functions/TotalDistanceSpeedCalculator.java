@@ -54,12 +54,13 @@ public class TotalDistanceSpeedCalculator extends ProcessWindowFunction<TaxiLoca
             avgSpeed = totalDistanceKm / totalTimeHours;
         }
 
-        out.collect(new TaxiSpeed(
+       out.collect(new TaxiSpeed(
             taxiId,
             last.timestamp,
             last.longitude,
             last.latitude,
-            avgSpeed
+            avgSpeed,
+            totalDistanceKm
         ));
     }
 }
