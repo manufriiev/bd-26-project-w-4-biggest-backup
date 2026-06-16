@@ -16,180 +16,176 @@ public class SpeedCalculatorProcessFunction
 
         private static final Logger LOG = LoggerFactory.getLogger(SpeedCalculatorProcessFunction.class);
 
-        private static final double SPEEDLIMIT = 50.0;
+        private static final double SPEED_LIMIT = 50.0;
+        private static final double MAX_SPEED = 150.0;
+        private static final double MOVING_MIN = 0.5; // km/h threshold to count as moving
+        private static final double PARKING_SEC = 300.0; // 5 min stationary = parked
         private static final int WARMUP = 6;
-        private static final double MAXSPEED = 150.0; // realistic taxi limit buffer
-        private static final double PARKING = 300.0; // 5 minutes
+        private static final int MAX_SPIKES = 3;
+        private static final double EMA_ALPHA = 0.2;
+        private static final double SPIKE_FACTOR = 3.5;
+        private static final double KALMAN_Q = 10.0; // process noise (how fast speed changes)
+        private static final double KALMAN_R = 30.0; // measurement noise (GPS inaccuracy)
 
-        private transient ValueState<Double> avarageTaxiSpeedKmh;
-        private transient ValueState<Integer> count;
-        private transient ValueState<Double> totalDistanceKm;
-        private transient ValueState<Integer> speedSampleCount;
-        private transient ValueState<TaxiLocation> previousLocation;
+        // State
+        private transient ValueState<TaxiLocation> prevLocation;
+        private transient ValueState<Integer> warmupCount;
+        private transient ValueState<Integer> spikeStreak;
+        private transient ValueState<Double> totalDistKm;
+        private transient ValueState<Double> emaSpeed;
+        private transient ValueState<Integer> emaSamples;
+        private transient ValueState<Double> kalmanX;
+        private transient ValueState<Double> kalmanP;
         private transient ValueState<String> lastMoved;
 
         @Override
         public void open(Configuration parameters) {
-                ValueStateDescriptor<TaxiLocation> descriptor = new ValueStateDescriptor<>("previous-location",
-                                TaxiLocation.class);
-
-                previousLocation = getRuntimeContext().getState(descriptor);
-                count = getRuntimeContext().getState(new ValueStateDescriptor<>("init-count", Integer.class));
-                avarageTaxiSpeedKmh = getRuntimeContext()
-                                .getState(new ValueStateDescriptor<>("average-speed-kmh", Double.class));
-                totalDistanceKm = getRuntimeContext()
-                                .getState(new ValueStateDescriptor<>("total-distance-km", Double.class));
-                speedSampleCount = getRuntimeContext()
-                                .getState(new ValueStateDescriptor<>("speed-sample-count", Integer.class));
+                prevLocation = getRuntimeContext()
+                                .getState(new ValueStateDescriptor<>("prev-location", TaxiLocation.class));
+                warmupCount = getRuntimeContext().getState(new ValueStateDescriptor<>("warmup-count", Integer.class));
+                spikeStreak = getRuntimeContext().getState(new ValueStateDescriptor<>("spike-streak", Integer.class));
+                totalDistKm = getRuntimeContext().getState(new ValueStateDescriptor<>("total-dist-km", Double.class));
+                emaSpeed = getRuntimeContext().getState(new ValueStateDescriptor<>("ema-speed", Double.class));
+                emaSamples = getRuntimeContext().getState(new ValueStateDescriptor<>("ema-samples", Integer.class));
+                kalmanX = getRuntimeContext().getState(new ValueStateDescriptor<>("kalman-x", Double.class));
+                kalmanP = getRuntimeContext().getState(new ValueStateDescriptor<>("kalman-p", Double.class));
                 lastMoved = getRuntimeContext().getState(new ValueStateDescriptor<>("last-moved", String.class));
         }
 
-        public static double speedCalc(
-                        TaxiLocation prev,
-                        TaxiLocation curr,
-                        double timeDiffSeconds) {
+        // ── Helpers ───────────────────────────────────────────────────────────────
 
-                if (prev == null)
-                        return 0.0;
-
-                double distance = Helper.calculateDistance(
-                                prev.latitude, prev.longitude,
-                                curr.latitude, curr.longitude);
-
-                double speed = distance * 3600.0 / timeDiffSeconds;
-
-                return speed;
+        private double rawSpeed(TaxiLocation prev, TaxiLocation curr, double timeSec) {
+                return Helper.calculateDistance(prev.latitude, prev.longitude,
+                                curr.latitude, curr.longitude) * 3600.0 / timeSec;
         }
 
+        private double kalmanUpdate(double measurement) throws Exception {
+                double x = kalmanX.value() == null ? measurement : kalmanX.value();
+                double P = kalmanP.value() == null ? KALMAN_R : kalmanP.value();
+
+                double P_pred = P + KALMAN_Q;
+                double K = P_pred / (P_pred + KALMAN_R);
+                double x_new = x + K * (measurement - x);
+                double P_new = (1.0 - K) * P_pred;
+
+                kalmanX.update(x_new);
+                kalmanP.update(P_new);
+                return x_new;
+        }
+
+        private double emaUpdate(double speed) throws Exception {
+                int n = emaSamples.value() == null ? 0 : emaSamples.value();
+                double avg = emaSpeed.value() == null ? speed : emaSpeed.value();
+                double next = n == 0 ? speed : EMA_ALPHA * speed + (1.0 - EMA_ALPHA) * avg;
+                emaSpeed.update(next);
+                emaSamples.update(n + 1);
+                return next;
+        }
+
+        private void resetState(TaxiLocation anchor) throws Exception {
+                prevLocation.update(anchor);
+                warmupCount.update(1);
+                spikeStreak.update(0);
+                kalmanX.update(null);
+                kalmanP.update(null);
+        }
+
+        private TaxiSpeed buildResult(TaxiLocation loc, double speed, boolean isParking) throws Exception {
+                double dist = totalDistKm.value() == null ? 0.0 : totalDistKm.value();
+                double avg = emaSpeed.value() == null ? 0.0 : emaSpeed.value();
+                TaxiSpeed r = new TaxiSpeed(loc.taxiId, loc.timestamp,
+                                loc.longitude, loc.latitude,
+                                speed, dist, avg);
+                r.lastMoved = lastMoved.value();
+                r.isParking = isParking;
+                return r;
+        }
+
+        // ── Main ──────────────────────────────────────────────────────────────────
+
         @Override
-        public void processElement(
-                        TaxiLocation current,
-                        Context ctx,
-                        Collector<TaxiSpeed> out) throws Exception {
+        public void processElement(TaxiLocation curr, Context ctx, Collector<TaxiSpeed> out) throws Exception {
 
-                TaxiLocation previous = previousLocation.value();
+                TaxiLocation prev = prevLocation.value();
 
-                Integer c = count.value();
-                if (avarageTaxiSpeedKmh.value() == null)
-                        avarageTaxiSpeedKmh.update(0.0);
-                if (c == null)
-                        c = 0;
-                if (totalDistanceKm.value() == null)
-                        totalDistanceKm.update(0.0);
-                if (lastMoved.value() == null)
-                        lastMoved.update("1897-02-02 13:33:08");
-                if (previous == null) {
-                        count.update(0);
-                        previousLocation.update(current);
-
-                        out.collect(new TaxiSpeed(
-                                        current.taxiId,
-                                        current.timestamp,
-                                        current.longitude,
-                                        current.latitude,
-                                        0.0,
-                                        0.0,
-                                        0.0));
-
+                // First event
+                if (prev == null) {
+                        lastMoved.update(curr.timestamp);
+                        resetState(curr);
+                        out.collect(buildResult(curr, 0.0, false));
                         return;
                 }
 
-                double timeDiffSeconds = Helper.calculateTimeDifferenceSeconds(previous.timestamp, current.timestamp);
-                if (timeDiffSeconds <= 0) {
-                        LOG.warn("DROP_INVALID_TIME taxiId={} prevTs={} currTs={}",
-                                        current.taxiId, previous.timestamp, current.timestamp);
+                double timeSec = Helper.calculateTimeDifferenceSeconds(prev.timestamp, curr.timestamp);
+
+                // Invalid or stale timestamp
+                if (timeSec <= 0) {
+                        LOG.warn("DROP_INVALID_TIME taxiId={}", curr.taxiId);
                         return;
                 }
-                if (timeDiffSeconds > 300) {
-                        LOG.warn("DROP_OLD_DATA taxiId={} timeDiffSec={}", current.taxiId, timeDiffSeconds);
-                        previousLocation.update(current);
-                        count.update(1); // reset warmup after long gap
-
-                        out.collect(new TaxiSpeed(
-                                        current.taxiId,
-                                        current.timestamp,
-                                        current.longitude,
-                                        current.latitude,
-                                        0.0,
-                                        0.0,
-                                        0.0));
+                if (timeSec > 300) {
+                        LOG.warn("GAP_RESET taxiId={} gap={}s", curr.taxiId, timeSec);
+                        resetState(curr);
+                        out.collect(buildResult(curr, 0.0, false));
                         return;
                 }
-                double speed = speedCalc(previous, current, timeDiffSeconds);
 
-                if (c < WARMUP) {
-                        if (speed <= MAXSPEED) {
-                                previousLocation.update(current);
-                                count.update(c + 1);
+                double raw = rawSpeed(prev, curr, timeSec);
 
+                // Warmup: feed Kalman but don't emit real speeds yet
+                int wc = warmupCount.value() == null ? 0 : warmupCount.value();
+                if (wc < WARMUP) {
+                        if (raw <= MAX_SPEED) {
+                                kalmanUpdate(raw);
+                                emaUpdate(raw);
+                                prevLocation.update(curr);
+                                warmupCount.update(wc + 1);
                         }
-                        out.collect(new TaxiSpeed(
-                                        current.taxiId,
-                                        current.timestamp,
-                                        current.longitude,
-                                        current.latitude,
-                                        0.0,
-                                        0.0, 0.0));
+                        out.collect(buildResult(curr, 0.0, false));
                         return;
                 }
 
-                if (speed > MAXSPEED) {
+                // Spike detection (hard limit + dynamic factor)
+                double curEma = emaSpeed.value() == null ? 0.0 : emaSpeed.value();
+                double dynamicMax = Math.max(MAX_SPEED, curEma * SPIKE_FACTOR);
 
-                        LOG.warn("SPIKE_REJECTED taxiId={} speed={} km/h distKm={} timeSec={}",
-                                        current.taxiId, speed, timeDiffSeconds);
-
-                        // IMPORTANT:
-                        // do NOT update state → prevents poisoning future calculations
+                if (raw > dynamicMax) {
+                        int streak = (spikeStreak.value() == null ? 0 : spikeStreak.value()) + 1;
+                        LOG.warn("SPIKE taxiId={} raw={} dynamicMax={} streak={}", curr.taxiId, raw, dynamicMax,
+                                        streak);
+                        if (streak >= MAX_SPIKES) {
+                                LOG.warn("SPIKE_RESET taxiId={}", curr.taxiId);
+                                resetState(curr);
+                        } else {
+                                spikeStreak.update(streak);
+                        }
                         return;
                 }
 
-                TaxiSpeed result = new TaxiSpeed(
-                                current.taxiId,
-                                current.timestamp,
-                                current.longitude,
-                                current.latitude,
-                                speed,
-                                totalDistanceKm.value() == null ? 0.0 : totalDistanceKm.value(),
-                                avarageTaxiSpeedKmh.value() == null ? 0.0 : avarageTaxiSpeedKmh.value());
+                spikeStreak.update(0);
+                double smoothed = kalmanUpdate(raw);
+                double avgSpeed = emaUpdate(smoothed);
 
-                if (speed > SPEEDLIMIT) {
-                        ctx.output(SpeedCalculatorProcess.SPEEDING_TAG, result);
-                }
-                if (speed > 0.5) {
-                        lastMoved.update(current.timestamp);
-                        result.lastMoved = current.timestamp;
-                        result.isParking = false;
+                // Parking state
+                boolean isParking;
+                if (smoothed > MOVING_MIN) {
+                        lastMoved.update(curr.timestamp);
+                        isParking = false;
                 } else {
-                        String lastMovedTs = lastMoved.value();
-
-                        double parkedSeconds = Helper.calculateTimeDifferenceSeconds(lastMovedTs,
-                                        current.timestamp);
-                        if (parkedSeconds > PARKING) {
-                                result.isParking = true;
-                        }
-                        result.lastMoved = lastMovedTs;
+                        double parkedSec = Helper.calculateTimeDifferenceSeconds(lastMoved.value(), curr.timestamp);
+                        isParking = parkedSec > PARKING_SEC;
                 }
 
+                // Distance
+                double legKm = Helper.calculateDistance(prev.latitude, prev.longitude,
+                                curr.latitude, curr.longitude);
+                totalDistKm.update((totalDistKm.value() == null ? 0.0 : totalDistKm.value()) + legKm);
+
+                TaxiSpeed result = buildResult(curr, smoothed, isParking);
+                if (smoothed > SPEED_LIMIT)
+                        ctx.output(SpeedCalculatorProcess.SPEEDING_TAG, result);
                 out.collect(result);
 
-                // Update distance
-                double prevDist = totalDistanceKm.value() == null ? 0.0 : totalDistanceKm.value();
-                double legDist = Helper.calculateDistance(
-                                previous.latitude, previous.longitude,
-                                current.latitude, current.longitude);
-                totalDistanceKm.update(prevDist + legDist);
-
-                // Update rolling average speed
-                Integer samples = speedSampleCount.value();
-                if (samples == null)
-                        samples = 0;
-                double prevAvg = avarageTaxiSpeedKmh.value() == null ? 0.0 : avarageTaxiSpeedKmh.value();
-                double newAvg = (prevAvg * samples + speed)
-                                / (samples + 1);
-                avarageTaxiSpeedKmh.update(newAvg);
-                speedSampleCount.update(samples + 1);
-
-                // IMPORTANT: only update state after validation
-                previousLocation.update(current);
+                prevLocation.update(curr);
         }
 }
