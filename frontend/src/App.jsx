@@ -40,6 +40,75 @@ const TAG_STYLES = {
   taxiUpdate: { bg: '#E6F1FB', color: '#185FA5', dot: '#378ADD' },
 };
 
+// Small pill used inside the taxi popup to show status at a glance.
+function StatusBadge({ label, color, bg }) {
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center',
+      fontSize: 11, fontWeight: 600, lineHeight: 1.4,
+      padding: '1px 7px', borderRadius: 999,
+      background: bg, color,
+    }}>
+      {label}
+    </span>
+  );
+}
+
+// Per-taxi popup: header with id, status badges, and a compact stat grid.
+function TaxiPopup({ taxi, isSpeeding, isOutOfArea }) {
+  // Prefer totalDistance (the field the backend actually sends); fall back to
+  // distance for older payloads so the value is never blank.
+  const distanceKm = taxi.totalDistance ?? taxi.distance;
+  const isParking = taxi.isParking;
+
+  const rows = [
+    ['Speed', taxi.speed != null ? `${taxi.speed.toFixed(1)} km/h` : '—'],
+    ['Avg speed', taxi.averageSpeed != null ? `${taxi.averageSpeed.toFixed(1)} km/h` : '—'],
+    ['Distance', distanceKm != null ? `${distanceKm.toFixed(2)} km` : '—'],
+    ['Position', taxi.latitude != null && taxi.longitude != null
+      ? `${taxi.latitude.toFixed(4)}, ${taxi.longitude.toFixed(4)}` : '—'],
+    ['Updated', taxi.timestamp ?? '—'],
+  ];
+
+  return (
+    <div style={{ fontSize: 13, minWidth: 200, fontFamily: 'sans-serif' }}>
+      {/* Header */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 8,
+        marginBottom: 8, paddingBottom: 6,
+        borderBottom: '1px solid #eef0f2',
+      }}>
+        <span style={{ fontSize: 15, fontWeight: 700, color: '#111' }}>
+          🚖 Taxi {taxi.taxi_id}
+        </span>
+      </div>
+
+      {/* Status badges — only render what applies */}
+      {(isSpeeding || isOutOfArea || isParking) ? (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 8 }}>
+          {isSpeeding && <StatusBadge label="Speeding" color="#993C1D" bg="#FAECE7" />}
+          {isOutOfArea && <StatusBadge label="Out of area" color="#1F7A43" bg="#E6F6ED" />}
+          {isParking && <StatusBadge label="Parked" color="#4B5563" bg="#F1F2F4" />}
+        </div>
+      ) : (
+        <div style={{ marginBottom: 8 }}>
+          <StatusBadge label="Active" color="#185FA5" bg="#E6F1FB" />
+        </div>
+      )}
+
+      {/* Stat grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', rowGap: 4, columnGap: 10 }}>
+        {rows.map(([label, value]) => (
+          <div key={label} style={{ display: 'contents' }}>
+            <span style={{ color: '#8a8f98', fontSize: 12 }}>{label}</span>
+            <span style={{ color: '#1f2328', fontWeight: 500, textAlign: 'right' }}>{value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // const for fading
 const STALE_AFTER_MS = 30 * 1000;
 
@@ -735,16 +804,7 @@ function App() {
                     eventHandlers={{ click: () => selectTaxi(taxi.taxi_id) }}
                   >
                     <Popup>
-                      <div style={{ fontSize: 14 }}>
-                        <strong>Taxi ID:</strong> {taxi.taxi_id}<br />
-                        <strong>Timestamp:</strong> {taxi.timestamp}<br />
-                        <strong>Average
-                          Speed:</strong> {taxi.averageSpeed?.toFixed(1)} km/h<br />
-                        <strong>Speed:</strong> {taxi.speed?.toFixed(1)} km/h
-                        {isSpeeding ? ' ⚠️ Speeding!' : ''}<br />
-                        <strong>Distance:</strong> {taxi.distance?.toFixed(2)} km<br />
-                        {isOutOfArea ? ' ⚠️ Out of Area!' : ''}
-                      </div>
+                      <TaxiPopup taxi={taxi} isSpeeding={isSpeeding} isOutOfArea={isOutOfArea} />
                     </Popup>
                   </Marker>
                 );
