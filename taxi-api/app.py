@@ -7,6 +7,7 @@ from contextlib import contextmanager
 
 import psycopg2
 import psycopg2.extras
+import psycopg2.pool
 from fastapi import FastAPI, HTTPException, Query
 from kafka import KafkaConsumer
 
@@ -20,14 +21,19 @@ KAFKA_GROUP_ID = os.environ.get("KAFKA_GROUP_ID", "taxi-api-consumer")
 
 app = FastAPI(title="Taxi Fleet API")
 
+# Connection pool: the consumer writes an event on every Kafka message and the
+# API reads on every request. Opening a fresh psycopg2 connection each time is
+# slow and leaks under load, so share a small pool instead.
+_pool = psycopg2.pool.ThreadedConnectionPool(minconn=1, maxconn=10, dsn=DATABASE_URL)
+
 
 @contextmanager
 def get_conn():
-    conn = psycopg2.connect(DATABASE_URL)
+    conn = _pool.getconn()
     try:
         yield conn
     finally:
-        conn.close()
+        _pool.putconn(conn)
 
 
 INSERT_SQL = """
@@ -155,6 +161,30 @@ def get_last_location_timed(
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/stats/summary")
+def fleet_summary():
+    """Fleet-wide totals for the dashboard: taxi count, total distance travelled,
+    and how many taxis are currently speeding / out of area / parked. Distance is
+    summed from each taxi's latest totalDistance so it is not double-counted."""
+    sql = """
+        WITH latest AS (
+            SELECT DISTINCT ON (taxi_id) *
+            FROM taxi_speed
+            ORDER BY taxi_id, received_at DESC
+        )
+        SELECT
+            COUNT(*)                                   AS taxi_count,
+            COALESCE(SUM(total_distance), 0)           AS total_distance_km,
+            COUNT(*) FILTER (WHERE is_speeding)        AS speeding_count,
+            COUNT(*) FILTER (WHERE is_out_of_area)     AS out_of_area_count,
+            COUNT(*) FILTER (WHERE is_parking)         AS parking_count
+        FROM latest
+    """
+    with get_conn() as conn, conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+        cur.execute(sql)
+        return cur.fetchone()
 
 
 @app.get("/taxis")
