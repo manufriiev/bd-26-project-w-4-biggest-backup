@@ -1,28 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { TAXI_UPDATE_FLUSH_INTERVAL_MS, WS_LINK } from "../config";
+import { WS_LINK } from "../config";
 
 /**
- * Owns the WebSocket connection and all state driven by it: taxi positions,
- * last-seen timestamps (for fade-out), speeding/area incidents, connection
- * status, and latency stats.
+ * Owns the WebSocket connection and all state driven by snapshots.
  *
- * Side-effecting concerns that other hooks care about (debug logging, path
- * trails) are NOT handled here — instead this hook accepts optional
- * callbacks (`onSnapshot`, `onTaxiUpdate`, `onSpeedingAlert`,
- * `onAreaViolation`) that fire on each relevant message, so callers can
- * wire it up to `useDebugLog` / `useTaxiPath` themselves.
+ * The backend sends a complete snapshot every 5 seconds.
+ * This hook replaces local state with the received snapshot.
  *
  * @param {string} wsUrl
  * @param {object} callbacks
- * @param {(data: object) => void} [callbacks.onSnapshot]
- * @param {(taxi: object) => void} [callbacks.onTaxiUpdate]
- * @param {(incidents: object[]) => void} [callbacks.onSpeedingAlert]
- * @param {(violations: object[]) => void} [callbacks.onAreaViolation]
  */
 export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
-  // Keep latest callbacks without re-opening the socket when they change
-  // identity on every render.
   const callbacksRef = useRef(callbacks);
+
   useEffect(() => {
     callbacksRef.current = callbacks;
   });
@@ -31,108 +21,85 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
   const [lastSeen, setLastSeen] = useState({});
   const [speedingIncidents, setSpeedingIncidents] = useState([]);
   const [areaViolations, setAreaViolations] = useState([]);
-  const [status, setStatus] = useState("Connecting...");
-
-  const [latency, setLatency] = useState(null);
-  const [latencyHistory, setLatencyHistory] = useState([]);
-  const [latencyTrend, setLatencyTrend] = useState(null);
   const [heatmapCells, setHeatmapCells] = useState({});
 
-  // TODO: this batching path is currently dead code — nothing ever writes
-  // into pendingUpdates.current, so the flush interval below never has
-  // anything to flush. taxiUpdate messages apply immediately instead (see
-  // below). Kept as-is to preserve existing behavior; either wire
-  // taxiUpdate through this queue, or remove the flush interval.
-  const pendingUpdates = useRef({});
+  const [stats, setStats] = useState({
+    activeTaxiCount: 0,
+    totalDistanceAll: 0,
+    avgLatencyMs: null,
+    p95LatencyMs: null,
+  });
 
-  useEffect(() => {
-    const flush = setInterval(() => {
-      const updates = pendingUpdates.current;
-      if (Object.keys(updates).length === 0) return;
-      pendingUpdates.current = {};
-      const updateTime = Date.now();
-      setTaxiMap((prev) => ({ ...prev, ...updates }));
-      setLastSeen((prev) => {
-        const next = { ...prev };
-        Object.keys(updates).forEach((id) => {
-          next[id] = updateTime;
-        });
-        return next;
-      });
-    }, TAXI_UPDATE_FLUSH_INTERVAL_MS);
-    return () => clearInterval(flush);
-  }, []);
+  const [latencyHistory, setLatencyHistory] = useState([]);
+  const [latencyTrend, setLatencyTrend] = useState(null);
+
+  const [status, setStatus] = useState("Connecting...");
 
   useEffect(() => {
     const socket = new WebSocket(wsUrl);
 
-    socket.onopen = () => setStatus("Connected – Live-Stream active");
+    socket.onopen = () => {
+      setStatus("Connected – Live-Stream active");
+    };
 
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        const cb = callbacksRef.current;
 
-        if (data.type === "snapshot") {
-          const map = {};
-          const seen = {};
-          const receivedAt = Date.now();
-          (data.taxis || []).forEach((t) => {
-            map[t.taxi_id] = t;
-            seen[t.taxi_id] = receivedAt;
-          });
-          setTaxiMap(map);
-          setLastSeen(seen);
-          setSpeedingIncidents(data.speedingIncidents || []);
-          setAreaViolations(data.areaViolations || []);
-          cb.onSnapshot?.(data);
+        if (data.type !== "snapshot") return;
 
-          if (data.stats && data.stats.avgLatencyMs) {
-            const initialLatency = data.stats.avgLatencyMs / 1000;
-            setLatency(initialLatency);
-            setLatencyHistory([initialLatency]);
+        const receivedAt = Date.now();
+
+        const map = {};
+        const seen = {};
+
+        (data.taxis || []).forEach((taxi) => {
+          map[taxi.taxi_id] = taxi;
+          seen[taxi.taxi_id] = receivedAt;
+        });
+
+        setTaxiMap(map);
+        setLastSeen(seen);
+
+        setSpeedingIncidents(data.speedingIncidents || []);
+        setAreaViolations(data.areaViolations || []);
+        setHeatmapCells(data.heatmapCells || {});
+
+        if (data.stats) {
+          setStats(data.stats);
+
+          if (data.stats.avgLatencyMs !== null) {
+            const latencySeconds = data.stats.avgLatencyMs / 1000;
+
+            setLatencyHistory((prev) => {
+              const next = [...prev, latencySeconds].slice(-5);
+
+              if (next.length >= 2) {
+                const oldValue = next[next.length - 2];
+
+                setLatencyTrend(
+                  latencySeconds > oldValue
+                    ? "up"
+                    : latencySeconds < oldValue
+                      ? "down"
+                      : null,
+                );
+              }
+
+              return next;
+            });
           }
-        } else if (data.type === "taxiUpdate") {
-          const t = data.taxi;
-          setTaxiMap((prev) => ({ ...prev, [t.taxi_id]: t }));
-          setLastSeen((prev) => ({ ...prev, [t.taxi_id]: Date.now() }));
-          cb.onTaxiUpdate?.(t);
-        } else if (data.type === "latencyStats") {
-          const newLatency = data.stats.avgLatencyMs / 1000; // ms -> s
-          setLatency(newLatency);
-
-          setLatencyHistory((prev) => {
-            const newHistory = [...prev, newLatency].slice(-5);
-            if (newHistory.length >= 2) {
-              const previous = newHistory[newHistory.length - 2];
-              setLatencyTrend(
-                newLatency > previous
-                  ? "up"
-                  : newLatency < previous
-                    ? "down"
-                    : null,
-              );
-            }
-            return newHistory;
-          });
-        } else if (data.type === "speedingAlert") {
-          const incidents = data.speedingIncidents || [];
-          setSpeedingIncidents(incidents);
-          cb.onSpeedingAlert?.(incidents);
-        } else if (data.type === "areaViolation") {
-          const violations = data.areaViolations || [];
-          setAreaViolations(violations);
-          cb.onAreaViolation?.(violations);
-        } else if (data.type === "heatmapUpdate") {
-          const cell = data.cellData;
-          setHeatmapCells((prev) => ({ ...prev, [cell.cellId]: cell }));
         }
+
+        callbacksRef.current.onSnapshot?.(data);
       } catch (error) {
-        console.error("Error parsing WebSocket data:", error);
+        console.error("Error parsing WebSocket snapshot:", error);
       }
     };
 
-    socket.onclose = () => setStatus("Lost connection to backend");
+    socket.onclose = () => {
+      setStatus("Lost connection to backend");
+    };
 
     return () => socket.close();
   }, [wsUrl]);
@@ -142,9 +109,12 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
     lastSeen,
     speedingIncidents,
     areaViolations,
-    status,
-    latency,
-    latencyTrend,
     heatmapCells,
+
+    stats,
+    latencyHistory,
+    latencyTrend,
+
+    status,
   };
 }
