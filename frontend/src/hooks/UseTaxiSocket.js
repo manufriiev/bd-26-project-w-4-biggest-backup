@@ -22,6 +22,7 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
   const [speedingIncidents, setSpeedingIncidents] = useState([]);
   const [areaViolations, setAreaViolations] = useState([]);
   const [heatmapCells, setHeatmapCells] = useState({});
+  const [latency, setLatency] = useState(null);
 
   const [stats, setStats] = useState({
     activeTaxiCount: 0,
@@ -70,7 +71,7 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
 
           if (data.stats.avgLatencyMs !== null) {
             const latencySeconds = data.stats.avgLatencyMs / 1000;
-
+            setLatency(latencySeconds);
             setLatencyHistory((prev) => {
               const next = [...prev, latencySeconds].slice(-5);
 
@@ -109,12 +110,9 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
     lastSeen,
     speedingIncidents,
     areaViolations,
-    heatmapCells,
-
-    stats,
-    latencyHistory,
-    latencyTrend,
-
     status,
+    latency,
+    latencyTrend,
+    heatmapCells,
   };
 }
