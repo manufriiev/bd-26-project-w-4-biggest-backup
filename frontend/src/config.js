@@ -1,9 +1,8 @@
 // TODO maybe make a deployment branch which can be rebased from main, wich changes this const
 //change for deployment
-const BACKEND = 'http://35.193.16.110:5001';
+const BACKEND = "http://35.193.16.110:5001";
 
-
-const WS_LINK = 'ws://35.193.16.110:5001';"
+const WS_LINK = "ws://35.193.16.110:5001";
 
 // consts for path display number of points and time interval for path display
 export const PATH_LOCATIONS_LIMIT = 30;
