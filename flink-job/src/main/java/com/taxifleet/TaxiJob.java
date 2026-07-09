@@ -2,7 +2,6 @@ package com.taxifleet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taxifleet.functions.*;
-import com.taxifleet.helper.RedisSink;
 import com.taxifleet.models.TaxiLocation;
 import com.taxifleet.models.TaxiSpeed;
 
@@ -159,7 +158,7 @@ public class TaxiJob {
                 StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
                 // set paralism, hast to be matched the partitions in kafka, otherwisekafka will
                 // slow down as only so many patritions can be written to in parallel
-                env.setParallelism(4);
+                env.setParallelism(10);
                 System.out.println("Flink Taxi Job starting - connecting to Kafka...");
 
                 ObjectMapper mapper = new ObjectMapper();
