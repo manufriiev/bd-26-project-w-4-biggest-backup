@@ -203,7 +203,7 @@ public class TaxiJob {
                 processSpeedingViolations(speedStream, speedingSink);
                 propagateToDashboard(speedStream, processedSink, mapper);
 
-                processHeatmap(speedStream, heatmapSink, mapper);
+//                processHeatmap(speedStream, heatmapSink, mapper);
 
                 env.execute("Taxi Fleet Monitoring");
         }
