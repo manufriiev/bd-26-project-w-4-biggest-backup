@@ -21,16 +21,59 @@ let areaViolations = [];
 const areaViolationIndex = new Set();
 // taxi_Id -> violation
 
+// this is just for performance testing (dillutes this file a little bit but works)
+const ACTIVE_WINDOW_MS = 10000; // a taxi counts as "active" if seen in the last 10s
+const lastSeen = new Map(); // taxi_id -> timestamp
+
+function markActive(taxiId, ts) {
+  lastSeen.set(taxiId, ts);
+}
+
+function activeTaxiCount(now = Date.now()) {
+  for (const [id, ts] of lastSeen) {
+    if (now - ts > ACTIVE_WINDOW_MS) lastSeen.delete(id);
+  }
+  return lastSeen.size;
+}
+
+// ---- CSV logging (one row per stats interval, not per event) ----
+const fs = require("fs");
+const path = require("path");
+
+const LOAD_LEVEL = process.env.LOAD_LEVEL || null;
+const LOGGING_ENABLED = LOAD_LEVEL !== null;
+const RUN_ID = process.env.RUN_ID || new Date().toISOString().replace(/[:.]/g, "-");
+
+const csvPath = path.join(__dirname, "logs", `latency_avg_${RUN_ID}.csv`);
+
+if (LOGGING_ENABLED) {
+  fs.mkdirSync(path.dirname(csvPath), { recursive: true });
+  fs.writeFileSync(
+    csvPath,
+    "timestamp_ms,avg_latency_ms,p95_latency_ms,active_taxi_count,sample_count,load_level\n"
+  );
+}
+
+function appendStatsRow(row) {
+  if (!LOGGING_ENABLED) return;
+  fs.appendFile(csvPath, row, (err) => {
+    if (err) console.error("[CSV] write failed:", err);
+  });
+}
+
+process.on("SIGINT", () => process.exit(0));
+
 // Rolling window of recent end-to-end latencies (ms) for the dashboard health panel.
-// Each taxi-processed event carries ingested_at (provider publish time); latency is
-// now - ingested_at, measured the moment the backend receives the event from Kafka.
 const recentLatencies = [];
-const LATENCY_WINDOW = 500; // keep the last N samples
-function recordLatency(ms) {
+const LATENCY_WINDOW = 500;
+
+function recordLatency(ms, taxiId, ts = Date.now()) {
   if (!Number.isFinite(ms) || ms < 0) return;
   recentLatencies.push(ms);
   if (recentLatencies.length > LATENCY_WINDOW) recentLatencies.shift();
+  markActive(taxiId, ts);
 }
+
 function latencyStats() {
   if (recentLatencies.length === 0)
     return { avgLatencyMs: null, p95LatencyMs: null };
@@ -40,13 +83,19 @@ function latencyStats() {
   const idx = Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95));
   return { avgLatencyMs: avg, p95LatencyMs: sorted[idx] };
 }
-// Broadcast aggregated latency to all clients every 5s.
+
+// Broadcast aggregated latency to all clients every 5s, and log it to CSV.
 setInterval(() => {
   const stats = latencyStats();
   if (stats.avgLatencyMs !== null) {
     broadcast({ type: "latencyStats", stats });
     console.log(
       `[Latency] avg ${stats.avgLatencyMs}ms p95 ${stats.p95LatencyMs}ms (n=${recentLatencies.length})`,
+    );
+
+    const now = Date.now();
+    appendStatsRow(
+      `${now},${stats.avgLatencyMs},${stats.p95LatencyMs},${activeTaxiCount(now)},${recentLatencies.length},${LOAD_LEVEL}\n`
     );
   }
 }, 5000);
@@ -157,7 +206,11 @@ async function startConsumers() {
     eachMessage: async ({ message }) => {
       const event = JSON.parse(message.value.toString());
       // End-to-end latency: now minus the provider ingestion timestamp.
-      if (event.ingested_at) recordLatency(Date.now() - event.ingested_at);
+      if (event.ingested_at) {
+          const now = Date.now();
+          const latencyMs = now - event.ingested_at;
+          recordLatency(latencyMs, String(event.taxi_id), now);
+        }
       broadcast({
         type: "taxiUpdate",
         taxi: {

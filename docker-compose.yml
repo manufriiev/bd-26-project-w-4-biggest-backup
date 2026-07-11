@@ -59,6 +59,8 @@ services:
     build: ./kafka-backend
     container_name: kafka-backend
     restart: on-failure
+    volumes:
+      - ./logs:/app/logs
     ports:
       - "5001:5001"
     environment:
