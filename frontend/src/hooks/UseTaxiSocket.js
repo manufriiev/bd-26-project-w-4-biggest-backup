@@ -99,7 +99,6 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
           const t = data.taxi;
           pendingUpdates.current[t.taxi_id] = t; // queued for the batched flush above
           cb.onTaxiUpdate?.(t);
-
         } else if (data.type === "latencyStats") {
           const newLatency = data.stats.avgLatencyMs / 1000; // ms -> s
           setLatency(newLatency);
@@ -122,24 +121,19 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
             }
             return newHistory;
           });
-
         } else if (data.type === "speedingAlert") {
           const incidents = data.speedingIncidents || [];
           setSpeedingIncidents(incidents);
           cb.onSpeedingAlert?.(incidents);
-
         } else if (data.type === "areaViolation") {
           const violations = data.areaViolations || [];
           setAreaViolations(violations);
           cb.onAreaViolation?.(violations);
-
         } else if (data.type === "heatmapUpdate") {
           const cells = data.cellData;
           setHeatmapCells(cells);
-
         } else if (data.type === "totalDistanceUpdate") {
           setTotalDistanceAll(data.totalDistanceAll);
-
         } else if (data.type === "ooaNotification") {
           cb.onOoaNotification?.(data);
         }

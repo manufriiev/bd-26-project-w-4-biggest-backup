@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import "./App.css";
 import "leaflet/dist/leaflet.css";
 
@@ -64,11 +64,10 @@ function App() {
 
       appendLiveUpdate(t);
     },
-    onAreaViolation: () => {
-    },
+    onAreaViolation: () => {},
     onOoaNotification: ({ trigger, taxiId }) => {
-      const label = trigger === 'entered' ? '🚨 left area' : '✅ returned';
-      debugLog.addEntry('area', `taxi ${taxiId} — ${label}`, taxiId);
+      const label = trigger === "entered" ? "🚨 left area" : "✅ returned";
+      debugLog.addEntry("area", `taxi ${taxiId} — ${label}`, taxiId);
     },
   });
 
@@ -108,8 +107,9 @@ function App() {
     () =>
       allTaxis
         .map((t) => ({ ...t, _opacity: getOpacity(lastSeen[t.taxi_id], now) }))
-        .filter((t) => t._opacity > 0),
-    [allTaxis, lastSeen, now],
+        .filter((t) => t._opacity > 0)
+        .filter((t) => !violatingTaxiIds.has(String(t.taxi_id))),
+      [allTaxis, lastSeen, now, violatingTaxiIds],
   );
 
   const hasActiveFilter = activeFilters.speeding || activeFilters.area;
@@ -119,7 +119,10 @@ function App() {
     const violatorMap = {};
     if (activeFilters.speeding) {
       speedingIncidents.forEach((i) => {
-        violatorMap[i.taxi_id] = normalizeAlarmTaxi(i);
+        violatorMap[i.taxi_id] = {
+          ...taxiMap[i.taxi_id],
+          ...normalizeAlarmTaxi(i),
+        };
       });
     }
     if (activeFilters.area) {
@@ -137,6 +140,7 @@ function App() {
     visibleTaxis,
     speedingIncidents,
     areaViolations,
+    taxiMap
   ]);
 
   const taxis = useMemo(
@@ -196,8 +200,8 @@ function App() {
         <span style={{ fontSize: 13, color: "#555" }}>
           <strong>Total distance travelled:</strong>{" "}
           {totalDistanceAll != null
-              ? `${totalDistanceAll.toFixed(1)} km`
-              : "N/A"}
+            ? `${totalDistanceAll.toFixed(1)} km`
+            : "N/A"}
         </span>
 
         <TaxiSearchBox
@@ -298,7 +302,6 @@ function App() {
             violatingTaxiIds={violatingTaxiIds}
             pathPositions={pathPositions}
             onSelectTaxi={selectTaxi}
-            showHeatmap={true}
             heatmapCells={heatmapCells}
           />
         </div>

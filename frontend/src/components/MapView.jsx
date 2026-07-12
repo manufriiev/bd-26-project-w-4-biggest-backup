@@ -10,7 +10,7 @@ import {
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { pickTaxiIcon, createClusterIcon } from "../utils/taxiIcons.js";
-import { HeatMapLayer } from "./HeatMapLayer.jsx";
+import { HeatMapControl } from "./HeatMapControl.jsx";
 
 const BEIJING_CENTER = [39.9042, 116.4074];
 const DEFAULT_ZOOM = 12;
@@ -46,7 +46,10 @@ function TaxiPopup({ taxi, isSpeeding, isOutOfArea }) {
 
   const rows = [
     ["Speed", taxi.speed != null ? `${taxi.speed.toFixed(1)} km/h` : "—"],
-    ["Avg speed", taxi.averageSpeed != null ? `${taxi.averageSpeed.toFixed(1)} km/h` : "—"],
+    [
+      "Avg speed",
+      taxi.averageSpeed != null ? `${taxi.averageSpeed.toFixed(1)} km/h` : "—",
+    ],
     ["Distance", distanceKm != null ? `${distanceKm.toFixed(2)} km` : "—"],
     ["Updated", taxi.timestamp ?? "—"],
   ];
@@ -66,7 +69,9 @@ function TaxiPopup({ taxi, isSpeeding, isOutOfArea }) {
         🚖 Taxi {taxi.taxi_id}
       </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 8 }}>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 8 }}
+      >
         {badges.map(([label, color, bg]) => (
           <span
             key={label}
@@ -84,11 +89,20 @@ function TaxiPopup({ taxi, isSpeeding, isOutOfArea }) {
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", rowGap: 4, columnGap: 10 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto 1fr",
+          rowGap: 4,
+          columnGap: 10,
+        }}
+      >
         {rows.map(([label, value]) => (
           <div key={label} style={{ display: "contents" }}>
             <span style={{ color: "#8a8f98", fontSize: 12 }}>{label}</span>
-            <span style={{ color: "#1f2328", fontWeight: 500, textAlign: "right" }}>
+            <span
+              style={{ color: "#1f2328", fontWeight: 500, textAlign: "right" }}
+            >
               {value}
             </span>
           </div>
@@ -107,7 +121,6 @@ export function MapView({
   violatingTaxiIds,
   pathPositions,
   onSelectTaxi,
-  showHeatmap,
   heatmapCells,
 }) {
   return (
@@ -123,7 +136,7 @@ export function MapView({
         attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {showHeatmap && <HeatMapLayer cells={heatmapCells} />}
+      {<HeatMapControl cells={heatmapCells} />}
       <MarkerClusterGroup
         chunkedLoading
         iconCreateFunction={createClusterIcon}
