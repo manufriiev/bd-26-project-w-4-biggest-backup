@@ -1,0 +1,559 @@
+timestamp_ms,vertex_name,vertex_id,0.numRecordsInPerSecond,0.numRecordsOutPerSecond,0.backPressuredTimeMsPerSecond,0.busyTimeMsPerSecond,load_level
+1783859727066,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859727066,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,126.83333333333333,5.85,0,3.0,200
+1783859727066,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,5.85,6.233333333333333,0,11.0,200
+1783859727066,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,10.45,2.1166666666666667,0,4.0,200
+1783859727066,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.5333333333333333,0.0,0,1.0,200
+1783859727066,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.9,1.8833333333333333,0,7.0,200
+1783859727066,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,7.833333333333333,0.0,0,4.0,200
+1783859727066,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859727066,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859731971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859731971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,75.61666666666666,4.033333333333333,0,2.0,200
+1783859731971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,4.033333333333333,4.3,0,7.0,200
+1783859731971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,10.45,2.1166666666666667,0,4.0,200
+1783859731971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.5333333333333333,0.0,0,1.0,200
+1783859731971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.9,1.8833333333333333,0,7.0,200
+1783859731971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,7.833333333333333,0.0,0,4.0,200
+1783859731971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859731971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859736970,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859736970,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,75.61666666666666,4.033333333333333,0,2.0,200
+1783859736970,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,4.033333333333333,4.3,0,7.0,200
+1783859736970,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,10.45,2.1166666666666667,0,4.0,200
+1783859736970,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.5333333333333333,0.0,0,1.0,200
+1783859736970,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.9,1.8833333333333333,0,7.0,200
+1783859736970,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,7.833333333333333,0.0,0,4.0,200
+1783859736970,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859736970,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859741971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859741971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,75.61666666666666,4.033333333333333,0,2.0,200
+1783859741971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,4.033333333333333,4.3,0,7.0,200
+1783859741971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,10.45,2.1166666666666667,0,4.0,200
+1783859741971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.5333333333333333,0.0,0,1.0,200
+1783859741971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.9,1.8833333333333333,0,7.0,200
+1783859741971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,7.833333333333333,0.0,0,4.0,200
+1783859741971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859741971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859746971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859746971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,39.75,2.4,0,2.0,200
+1783859746971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,2.4,2.5,0,4.0,200
+1783859746971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,6.233333333333333,1.0833333333333333,0,2.0,200
+1783859746971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.2833333333333333,0.0,0,1.0,200
+1783859746971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.0833333333333333,1.0666666666666667,0,4.0,200
+1783859746971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,4.7,0.0,0,3.0,200
+1783859746971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859746971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783859751971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859751971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,39.75,2.4,0,2.0,200
+1783859751971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,2.4,2.5,0,4.0,200
+1783859751971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,6.233333333333333,1.0833333333333333,0,2.0,200
+1783859751971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.2833333333333333,0.0,0,1.0,200
+1783859751971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.0833333333333333,1.0666666666666667,0,4.0,200
+1783859751971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,4.7,0.0,0,3.0,200
+1783859751971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859751971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783859756971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859756971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,35.45,2.65,0,1.0,200
+1783859756971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,2.65,2.9833333333333334,0,3.0,200
+1783859756971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,5.933333333333334,2.5833333333333335,0,3.0,200
+1783859756971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.65,0.0,0,1.0,200
+1783859756971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.7166666666666666,0.6333333333333333,0,2.0,200
+1783859756971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,2.6,0.0,0,2.0,200
+1783859756971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859756971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859761971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859761971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,35.45,2.65,0,1.0,200
+1783859761971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,2.65,2.9833333333333334,0,3.0,200
+1783859761971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,5.933333333333334,2.5833333333333335,0,3.0,200
+1783859761971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.65,0.0,0,1.0,200
+1783859761971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,1.7166666666666666,0.6333333333333333,0,2.0,200
+1783859761971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,2.6,0.0,0,2.0,200
+1783859761971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859761971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859766971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859766971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,47.53333333333333,4.733333333333333,0,1.0,200
+1783859766971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,4.733333333333333,5.183333333333334,0,3.0,200
+1783859766971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,6.116666666666666,3.6,0,4.0,200
+1783859766971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.9,0.0,0,1.0,200
+1783859766971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,3.933333333333333,1.6,0,8.0,200
+1783859766971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,6.7,0.0,0,5.0,200
+1783859766971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859766971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783859771971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859771971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,47.53333333333333,4.733333333333333,0,1.0,200
+1783859771971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,4.733333333333333,5.183333333333334,0,3.0,200
+1783859771971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,6.116666666666666,3.6,0,4.0,200
+1783859771971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,0.9,0.0,0,1.0,200
+1783859771971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,3.933333333333333,1.6,0,8.0,200
+1783859771971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,6.7,0.0,0,5.0,200
+1783859771971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859771971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783859776971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859776971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,85.26666666666667,7.4,0,1.0,200
+1783859776971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,7.4,8.033333333333333,0,3.0,200
+1783859776971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,7.633333333333334,4.683333333333334,0,5.0,200
+1783859776971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.1666666666666667,0.0,0,1.0,200
+1783859776971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,6.433333333333334,3.0166666666666666,0,15.0,200
+1783859776971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,12.7,0.0,0,9.0,200
+1783859776971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859776971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859781971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859781971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,85.26666666666667,7.4,0,1.0,200
+1783859781971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,7.4,8.033333333333333,0,3.0,200
+1783859781971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,7.633333333333334,4.683333333333334,0,5.0,200
+1783859781971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.1666666666666667,0.0,0,1.0,200
+1783859781971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,6.433333333333334,3.0166666666666666,0,15.0,200
+1783859781971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,12.7,0.0,0,9.0,200
+1783859781971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859781971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859786971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859786971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,124.83333333333333,10.666666666666666,0,2.0,200
+1783859786971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,10.666666666666666,11.45,0,4.0,200
+1783859786971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,10.4,6.083333333333333,0,7.0,200
+1783859786971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.5166666666666666,0.0,0,2.0,200
+1783859786971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,9.266666666666667,4.716666666666667,0,23.0,200
+1783859786971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,19.8,0.0,0,14.0,200
+1783859786971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859786971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859791970,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859791970,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,124.83333333333333,10.666666666666666,0,2.0,200
+1783859791970,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,10.666666666666666,11.45,0,4.0,200
+1783859791970,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,10.4,6.083333333333333,0,7.0,200
+1783859791970,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.5166666666666666,0.0,0,2.0,200
+1783859791970,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,9.266666666666667,4.716666666666667,0,23.0,200
+1783859791970,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,19.8,0.0,0,14.0,200
+1783859791970,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859791970,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859796971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859796971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,160.85,13.933333333333334,0,2.0,200
+1783859796971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,13.933333333333334,14.833333333333334,0,6.0,200
+1783859796971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,13.166666666666666,7.25,0,10.0,200
+1783859796971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.8,0.0,0,2.0,200
+1783859796971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.116666666666667,6.45,0,32.0,200
+1783859796971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,26.8,0.0,0,19.0,200
+1783859796971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859796971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859801972,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859801972,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,160.85,13.933333333333334,0,2.0,200
+1783859801972,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,13.933333333333334,14.833333333333334,0,6.0,200
+1783859801972,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,13.166666666666666,7.25,0,10.0,200
+1783859801972,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.8,0.0,0,2.0,200
+1783859801972,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.116666666666667,6.45,0,32.0,200
+1783859801972,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,26.8,0.0,0,19.0,200
+1783859801972,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859801972,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859806971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859806971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,200.2,17.066666666666666,0,3.0,200
+1783859806971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.066666666666666,18.133333333333333,0,8.0,200
+1783859806971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,16.283333333333335,8.716666666666667,0,13.0,200
+1783859806971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,2.1666666666666665,0.0,0,3.0,200
+1783859806971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.766666666666667,8.033333333333333,0,38.0,200
+1783859806971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,33.28333333333333,0.0,0,23.0,200
+1783859806971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859806971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859811972,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859811972,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,200.2,17.066666666666666,0,3.0,200
+1783859811972,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.066666666666666,18.133333333333333,0,8.0,200
+1783859811972,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,16.283333333333335,8.716666666666667,0,13.0,200
+1783859811972,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,2.1666666666666665,0.0,0,3.0,200
+1783859811972,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.766666666666667,8.033333333333333,0,38.0,200
+1783859811972,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,33.28333333333333,0.0,0,23.0,200
+1783859811972,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859811972,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859816972,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859816972,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,224.08333333333334,18.95,0,3.0,200
+1783859816972,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.95,19.9,0,8.0,200
+1783859816972,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.983333333333334,8.316666666666666,0,13.0,200
+1783859816972,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,2.066666666666667,0.0,0,3.0,200
+1783859816972,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,16.183333333333334,9.533333333333333,0,44.0,200
+1783859816972,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,39.15,0.0,0,27.0,200
+1783859816972,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859816972,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859821972,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859821972,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,224.08333333333334,18.95,0,3.0,200
+1783859821972,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.95,19.9,0,8.0,200
+1783859821972,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.983333333333334,8.316666666666666,0,13.0,200
+1783859821972,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,2.066666666666667,0.0,0,3.0,200
+1783859821972,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,16.183333333333334,9.533333333333333,0,44.0,200
+1783859821972,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,39.15,0.0,0,27.0,200
+1783859821972,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859821972,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859826971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859826971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,224.08333333333334,18.95,0,3.0,200
+1783859826971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.95,19.9,0,8.0,200
+1783859826971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.983333333333334,8.316666666666666,0,13.0,200
+1783859826971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,2.066666666666667,0.0,0,3.0,200
+1783859826971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,16.183333333333334,9.533333333333333,0,44.0,200
+1783859826971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,39.15,0.0,0,27.0,200
+1783859826971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859826971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859831972,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859831972,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,222.3,18.866666666666667,0,3.0,200
+1783859831972,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.866666666666667,19.7,0,10.0,200
+1783859831972,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,19.433333333333334,7.8,0,13.0,200
+1783859831972,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.95,0.0,0,3.0,200
+1783859831972,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,15.7,9.25,0,40.0,200
+1783859831972,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,37.45,0.0,0,26.0,200
+1783859831972,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859831972,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859836971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859836971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,222.3,18.866666666666667,0,3.0,200
+1783859836971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.866666666666667,19.7,0,10.0,200
+1783859836971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,19.433333333333334,7.8,0,13.0,200
+1783859836971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.95,0.0,0,3.0,200
+1783859836971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,15.7,9.25,0,40.0,200
+1783859836971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,37.45,0.0,0,26.0,200
+1783859836971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859836971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859841972,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859841972,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,221.63333333333333,18.2,0,3.0,200
+1783859841972,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.2,18.966666666666665,0,13.0,200
+1783859841972,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.2,7.916666666666667,0,16.0,200
+1783859841972,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9833333333333334,0.0,0,3.0,200
+1783859841972,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.483333333333333,8.416666666666666,0,37.0,200
+1783859841972,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,34.266666666666666,0.0,0,25.0,200
+1783859841972,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859841972,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859846971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859846971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,221.63333333333333,18.2,0,3.0,200
+1783859846971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.2,18.966666666666665,0,13.0,200
+1783859846971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.2,7.916666666666667,0,16.0,200
+1783859846971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9833333333333334,0.0,0,3.0,200
+1783859846971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.483333333333333,8.416666666666666,0,37.0,200
+1783859846971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,34.266666666666666,0.0,0,25.0,200
+1783859846971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859846971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859851971,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859851971,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,219.88333333333333,17.033333333333335,0,3.0,200
+1783859851971,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.033333333333335,17.666666666666668,0,13.0,200
+1783859851971,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.466666666666665,6.733333333333333,0,14.0,200
+1783859851971,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.6833333333333333,0.0,0,3.0,200
+1783859851971,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,13.15,7.583333333333333,0,32.0,200
+1783859851971,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,30.55,0.0,0,22.0,200
+1783859851971,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859851971,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859856972,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859856972,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,219.88333333333333,17.033333333333335,0,3.0,200
+1783859856972,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.033333333333335,17.666666666666668,0,13.0,200
+1783859856972,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.466666666666665,6.733333333333333,0,14.0,200
+1783859856972,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.6833333333333333,0.0,0,3.0,200
+1783859856972,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,13.15,7.583333333333333,0,32.0,200
+1783859856972,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,30.55,0.0,0,22.0,200
+1783859856972,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859856972,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859861973,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859861973,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,207.25,16.266666666666666,0,3.0,200
+1783859861973,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.266666666666666,17.033333333333335,0,14.0,200
+1783859861973,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,23.55,7.383333333333334,0,12.0,200
+1783859861973,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.8333333333333333,0.0,0,2.0,200
+1783859861973,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.066666666666666,6.966666666666667,0,28.0,200
+1783859861973,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,28.45,0.0,0,20.0,200
+1783859861973,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859861973,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859866974,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,1.0,200
+1783859866974,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,207.25,16.266666666666666,0,3.0,200
+1783859866974,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.266666666666666,17.033333333333335,0,14.0,200
+1783859866974,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,23.55,7.383333333333334,0,12.0,200
+1783859866974,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.8333333333333333,0.0,0,2.0,200
+1783859866974,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.066666666666666,6.966666666666667,0,28.0,200
+1783859866974,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,28.45,0.0,0,20.0,200
+1783859866974,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859866974,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859871974,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859871974,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,202.8,16.15,0,3.0,200
+1783859871974,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.15,17.033333333333335,0,15.0,200
+1783859871974,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,24.1,7.6,0,13.0,200
+1783859871974,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9,0.0,0,2.0,200
+1783859871974,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,11.866666666666667,6.9,0,29.0,200
+1783859871974,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,28.883333333333333,0.0,0,22.0,200
+1783859871974,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859871974,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859876973,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859876973,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,202.8,16.15,0,3.0,200
+1783859876973,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.15,17.033333333333335,0,15.0,200
+1783859876973,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,24.1,7.6,0,13.0,200
+1783859876973,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9,0.0,0,2.0,200
+1783859876973,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,11.866666666666667,6.9,0,29.0,200
+1783859876973,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,28.883333333333333,0.0,0,22.0,200
+1783859876973,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859876973,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859881974,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859881974,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,204.06666666666666,16.25,0,3.0,200
+1783859881974,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.25,17.15,0,14.0,200
+1783859881974,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,23.433333333333334,7.766666666666667,0,13.0,200
+1783859881974,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.95,0.0,0,2.0,200
+1783859881974,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.05,7.216666666666667,0,33.0,200
+1783859881974,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,30.283333333333335,0.0,0,22.0,200
+1783859881974,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859881974,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859886975,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859886975,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,204.06666666666666,16.25,0,3.0,200
+1783859886975,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.25,17.15,0,14.0,200
+1783859886975,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.366666666666667,7.85,0,13.0,200
+1783859886975,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9666666666666666,0.0,0,3.0,200
+1783859886975,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.316666666666666,7.55,0,33.0,200
+1783859886975,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,32.266666666666666,0.0,0,23.0,200
+1783859886975,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859886975,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859891975,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859891975,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,194.26666666666668,16.416666666666668,0,3.0,200
+1783859891975,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.416666666666668,17.383333333333333,0,13.0,200
+1783859891975,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.366666666666667,7.85,0,13.0,200
+1783859891975,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9666666666666666,0.0,0,3.0,200
+1783859891975,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.316666666666666,7.55,0,33.0,200
+1783859891975,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,32.266666666666666,0.0,0,23.0,200
+1783859891975,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859891975,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859896978,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859896978,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,194.26666666666668,16.416666666666668,0,3.0,200
+1783859896978,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.416666666666668,17.383333333333333,0,13.0,200
+1783859896978,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.366666666666667,7.85,0,13.0,200
+1783859896978,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9666666666666666,0.0,0,3.0,200
+1783859896978,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.316666666666666,7.55,0,33.0,200
+1783859896978,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,32.266666666666666,0.0,0,23.0,200
+1783859896978,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859896978,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859901979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859901979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,184.01666666666668,16.85,0,3.0,200
+1783859901979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.85,17.883333333333333,0,11.0,200
+1783859901979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,20.583333333333332,7.65,0,12.0,200
+1783859901979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9166666666666667,0.0,0,3.0,200
+1783859901979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,13.2,8.266666666666667,0,35.0,200
+1783859901979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,35.18333333333333,0.0,0,25.0,200
+1783859901979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859901979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859906978,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859906978,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,184.01666666666668,16.85,0,3.0,200
+1783859906978,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.85,17.883333333333333,0,11.0,200
+1783859906978,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,20.583333333333332,7.65,0,12.0,200
+1783859906978,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.9166666666666667,0.0,0,3.0,200
+1783859906978,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,13.2,8.266666666666667,0,35.0,200
+1783859906978,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,35.18333333333333,0.0,0,25.0,200
+1783859906978,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859906978,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859911979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859911979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,174.6,17.8,0,3.0,200
+1783859911979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.8,18.883333333333333,0,12.0,200
+1783859911979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,20.15,8.233333333333333,0,12.0,200
+1783859911979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,2.05,0.0,0,3.0,200
+1783859911979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.066666666666666,8.883333333333333,0,40.0,200
+1783859911979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,38.45,0.0,0,30.0,200
+1783859911979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859911979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859916978,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859916978,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,174.6,17.8,0,3.0,200
+1783859916978,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.8,18.883333333333333,0,12.0,200
+1783859916978,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,20.15,8.233333333333333,0,12.0,200
+1783859916978,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,2.05,0.0,0,3.0,200
+1783859916978,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.066666666666666,8.883333333333333,0,40.0,200
+1783859916978,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,38.45,0.0,0,30.0,200
+1783859916978,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859916978,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859921979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859921979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,173.81666666666666,18.416666666666668,0,3.0,200
+1783859921979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.416666666666668,19.383333333333333,0,10.0,200
+1783859921979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.6,7.383333333333334,0,12.0,200
+1783859921979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.85,0.0,0,3.0,200
+1783859921979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.933333333333334,9.4,0,44.0,200
+1783859921979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.81666666666667,0.0,0,32.0,200
+1783859921979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859921979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859926979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859926979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,173.81666666666666,18.416666666666668,0,3.0,200
+1783859926979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.416666666666668,19.383333333333333,0,10.0,200
+1783859926979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.6,7.383333333333334,0,12.0,200
+1783859926979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.85,0.0,0,3.0,200
+1783859926979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.933333333333334,9.4,0,44.0,200
+1783859926979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.81666666666667,0.0,0,32.0,200
+1783859926979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859926979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859931979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859931979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,168.93333333333334,18.616666666666667,0,3.0,200
+1783859931979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.616666666666667,19.416666666666668,0,11.0,200
+1783859931979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,16.866666666666667,7.033333333333333,0,11.0,200
+1783859931979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.75,0.0,0,3.0,200
+1783859931979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,15.033333333333333,9.45,0,41.0,200
+1783859931979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,41.0,0.0,0,29.0,200
+1783859931979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859931979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859936980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859936980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,168.93333333333334,18.616666666666667,0,3.0,200
+1783859936980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.616666666666667,19.416666666666668,0,11.0,200
+1783859936980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,16.866666666666667,7.033333333333333,0,11.0,200
+1783859936980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.75,0.0,0,3.0,200
+1783859936980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,15.033333333333333,9.45,0,41.0,200
+1783859936980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.9,0.0,0,29.0,200
+1783859936980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859936980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859941980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859941980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,170.93333333333334,18.583333333333332,0,3.0,200
+1783859941980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.583333333333332,19.366666666666667,0,12.0,200
+1783859941980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,16.65,6.716666666666667,0,11.0,200
+1783859941980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.6666666666666667,0.0,0,3.0,200
+1783859941980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,15.033333333333333,9.266666666666667,0,39.0,200
+1783859941980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.9,0.0,0,29.0,200
+1783859941980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859941980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859946980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859946980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,170.93333333333334,18.583333333333332,0,3.0,200
+1783859946980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.583333333333332,19.366666666666667,0,12.0,200
+1783859946980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,16.65,6.716666666666667,0,11.0,200
+1783859946980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.6666666666666667,0.0,0,3.0,200
+1783859946980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,15.033333333333333,9.266666666666667,0,39.0,200
+1783859946980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.9,0.0,0,29.0,200
+1783859946980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859946980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859951980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859951980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,172.63333333333333,18.483333333333334,0,3.0,200
+1783859951980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.483333333333334,19.2,0,13.0,200
+1783859951980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.5,6.766666666666667,0,12.0,200
+1783859951980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.6833333333333333,0.0,0,3.0,200
+1783859951980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.916666666666666,9.116666666666667,0,40.0,200
+1783859951980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.28333333333333,0.0,0,28.0,200
+1783859951980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859951980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859956980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859956980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,172.63333333333333,18.483333333333334,0,3.0,200
+1783859956980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.483333333333334,19.2,0,13.0,200
+1783859956980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.5,6.766666666666667,0,12.0,200
+1783859956980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.6833333333333333,0.0,0,3.0,200
+1783859956980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.916666666666666,9.116666666666667,0,40.0,200
+1783859956980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.28333333333333,0.0,0,28.0,200
+1783859956980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859956980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859961979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859961979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,172.63333333333333,18.483333333333334,0,3.0,200
+1783859961979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.483333333333334,19.2,0,13.0,200
+1783859961979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,17.5,6.766666666666667,0,12.0,200
+1783859961979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.6833333333333333,0.0,0,3.0,200
+1783859961979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.916666666666666,9.116666666666667,0,40.0,200
+1783859961979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,40.28333333333333,0.0,0,28.0,200
+1783859961979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859961979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859966979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859966979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,176.16666666666666,18.35,0,3.0,200
+1783859966979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.35,19.1,0,13.0,200
+1783859966979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,19.083333333333332,6.983333333333333,0,14.0,200
+1783859966979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.75,0.0,0,3.0,200
+1783859966979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.716666666666667,8.75,0,39.0,200
+1783859966979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,38.8,0.0,0,24.0,200
+1783859966979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859966979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859971980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859971980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,176.16666666666666,18.35,0,3.0,200
+1783859971980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.35,19.1,0,13.0,200
+1783859971980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,19.083333333333332,6.983333333333333,0,14.0,200
+1783859971980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.75,0.0,0,3.0,200
+1783859971980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.716666666666667,8.75,0,39.0,200
+1783859971980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,38.8,0.0,0,24.0,200
+1783859971980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859971980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859976979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859976979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,181.31666666666666,18.0,0,3.0,200
+1783859976979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.0,18.666666666666668,0,15.0,200
+1783859976979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,20.233333333333334,7.166666666666667,0,14.0,200
+1783859976979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.7833333333333334,0.0,0,3.0,200
+1783859976979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.233333333333333,8.35,0,39.0,200
+1783859976979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,36.68333333333333,0.0,0,22.0,200
+1783859976979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859976979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783859981980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859981980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,181.31666666666666,18.0,0,3.0,200
+1783859981980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,18.0,18.666666666666668,0,15.0,200
+1783859981980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,20.233333333333334,7.166666666666667,0,14.0,200
+1783859981980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.7833333333333334,0.0,0,3.0,200
+1783859981980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,14.233333333333333,8.35,0,39.0,200
+1783859981980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,36.68333333333333,0.0,0,22.0,200
+1783859981980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859981980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859986979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859986979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,186.6,17.283333333333335,0,3.0,200
+1783859986979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.283333333333335,17.916666666666668,0,15.0,200
+1783859986979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.2,6.916666666666667,0,16.0,200
+1783859986979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.7333333333333334,0.0,0,4.0,200
+1783859986979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,13.45,7.733333333333333,0,37.0,200
+1783859986979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,33.56666666666667,0.0,0,22.0,200
+1783859986979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859986979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859991980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859991980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,186.6,17.283333333333335,0,3.0,200
+1783859991980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,17.283333333333335,17.916666666666668,0,15.0,200
+1783859991980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.2,6.916666666666667,0,16.0,200
+1783859991980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.7333333333333334,0.0,0,4.0,200
+1783859991980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,13.45,7.733333333333333,0,37.0,200
+1783859991980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,33.56666666666667,0.0,0,22.0,200
+1783859991980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859991980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783859996980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783859996980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,182.4,16.166666666666668,0,3.0,200
+1783859996980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.166666666666668,16.633333333333333,0,15.0,200
+1783859996980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.2,5.916666666666667,0,15.0,200
+1783859996980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.4833333333333334,0.0,0,4.0,200
+1783859996980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.283333333333333,7.016666666666667,0,35.0,200
+1783859996980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,30.016666666666666,0.0,0,21.0,200
+1783859996980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783859996980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783860001980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783860001980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,182.4,16.166666666666668,0,3.0,200
+1783860001980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.166666666666668,16.633333333333333,0,15.0,200
+1783860001980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.2,5.916666666666667,0,15.0,200
+1783860001980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.4833333333333334,0.0,0,4.0,200
+1783860001980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.283333333333333,7.016666666666667,0,35.0,200
+1783860001980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,30.016666666666666,0.0,0,21.0,200
+1783860001980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783860001980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783860006980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783860006980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,182.4,16.166666666666668,0,3.0,200
+1783860006980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,16.166666666666668,16.633333333333333,0,15.0,200
+1783860006980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,21.2,5.916666666666667,0,15.0,200
+1783860006980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.4833333333333334,0.0,0,4.0,200
+1783860006980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,12.283333333333333,7.016666666666667,0,35.0,200
+1783860006980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,30.016666666666666,0.0,0,21.0,200
+1783860006980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783860006980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783860011980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783860011980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,176.5,15.0,0,4.0,200
+1783860011980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,15.0,15.533333333333333,0,16.0,200
+1783860011980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.333333333333332,5.6,0,17.0,200
+1783860011980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.4,0.0,0,5.0,200
+1783860011980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,10.966666666666667,6.25,0,36.0,200
+1783860011980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,26.216666666666665,0.0,0,22.0,200
+1783860011980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783860011980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783860016979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783860016979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,176.5,15.0,0,4.0,200
+1783860016979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,15.0,15.533333333333333,0,16.0,200
+1783860016979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.333333333333332,5.6,0,17.0,200
+1783860016979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.4,0.0,0,5.0,200
+1783860016979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,10.966666666666667,6.25,0,36.0,200
+1783860016979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,26.216666666666665,0.0,0,22.0,200
+1783860016979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783860016979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,1.0,200
+1783860021979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783860021979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,185.58333333333334,14.916666666666666,0,3.0,200
+1783860021979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,14.916666666666666,15.633333333333333,0,17.0,200
+1783860021979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.683333333333334,6.283333333333333,0,18.0,200
+1783860021979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.5666666666666667,0.0,0,4.0,200
+1783860021979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,10.9,6.25,0,36.0,200
+1783860021979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,26.516666666666666,0.0,0,21.0,200
+1783860021979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783860021979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783860026980,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783860026980,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,185.58333333333334,14.916666666666666,0,3.0,200
+1783860026980,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,14.916666666666666,15.633333333333333,0,17.0,200
+1783860026980,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.683333333333334,6.283333333333333,0,18.0,200
+1783860026980,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.5666666666666667,0.0,0,4.0,200
+1783860026980,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,10.9,6.25,0,36.0,200
+1783860026980,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,26.516666666666666,0.0,0,21.0,200
+1783860026980,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783860026980,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
+1783860031979,"Source: Kafka Taxi Source -> Parse JSON and Filter Invalid Locations -> Timestamps/Watermarks",cbc357ccb763df2852fee8c4fc7d55f2,0.0,0.0,0,0.0,200
+1783860031979,"TumblingProcessingTimeWindows",306d8342cb5b2ad8b53f1be57f65bee8,177.86666666666667,15.116666666666667,0,3.0,200
+1783860031979,"KeyedProcess -> (Map -> Store OOA to Redis, Map)",a11f7b3dcd72fbd94a295f0c524af5af,15.116666666666667,15.816666666666666,0,15.0,200
+1783860031979,"Area Active Alarms Snapshot",c3c9ede375c2027ffcf8fc21dcb1c364,22.383333333333333,6.583333333333333,0,18.0,200
+1783860031979,"Notify Area Violation: Writer -> Notify Area Violation: Committer",d9350f7e40b0926985848318368d5d07,1.65,0.0,0,5.0,200
+1783860031979,"Calculate Speed and Detect Speeding -> (Store Information to Redis, Map -> Propagate Location to Dashboard: Writer -> Propagate Location to Dashboard: Committer)",09d7d231d7c5000d8edd6d8c761a5909,11.166666666666666,6.583333333333333,0,38.0,200
+1783860031979,"Total Distance Function",d3c7047dcd2df85109ccc9593d16fe63,28.05,0.0,0,22.0,200
+1783860031979,"Speeding Active Alarms Snapshot",0c572a4fe8d5ca9bb4a4f542bda4488f,0.0,0.0,0,0.0,200
+1783860031979,"Notify Speeding: Writer -> Notify Speeding: Committer",a4e8651e4d64fad2e9fc622c45b30402,0.0,0.0,0,0.0,200
