@@ -224,7 +224,7 @@ async function startConsumers() {
   await speedingConsumer.run({
     eachMessage: async ({ message }) => {
       snapshot.speedingIncidents = JSON.parse(message.value.toString());
-      broadcast({ type: "speedingAlert", speedingIncidents });
+      broadcast({ type: "speedingAlert", speedingIncidents: snapshot.speedingIncidents });
     },
   });
 
