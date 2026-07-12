@@ -22,9 +22,7 @@ export function DebugAlerts({
   // Only show selected taxi alerts
   const visible = entries.filter((e) => {
     if (!filters[e.type]) return false;
-    if (selectedTaxiId !== null && String(e.taxi_id) !== String(selectedTaxiId))
-      return false;
-    return true;
+    return !(selectedTaxiId !== null && String(e.taxi_id) !== String(selectedTaxiId));
   });
 
   return (
@@ -137,7 +135,13 @@ export function DebugAlerts({
               <button
                 key={type}
                 onClick={() => onToggleFilter(type)}
-                title={active ? `Hide ${type} alerts` : `Show ${type} alerts`}
+                title={
+                    Object.values(filters).every(Boolean)
+                        ? `Show only ${type} alerts`
+                        : filters[type] && Object.values(filters).filter(Boolean).length === 1
+                            ? `Show all alerts`
+                            : `Show only ${type} alerts`
+                }
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

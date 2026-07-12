@@ -16,54 +16,6 @@ const wss = new WebSocketServer({ server });
 
 const kafka = new Kafka({ brokers: ["kafka:9092"] });
 
-let speedingIncidents = [];
-let areaViolations = [];
-const areaViolationIndex = new Set();
-// taxi_Id -> violation
-
-// Rolling window of recent end-to-end latencies (ms) for the dashboard health panel.
-// Each taxi-processed event carries ingested_at (provider publish time); latency is
-// now - ingested_at, measured the moment the backend receives the event from Kafka.
-const recentLatencies = [];
-const LATENCY_WINDOW = 500; // keep the last N samples
-function recordLatency(ms) {
-  if (!Number.isFinite(ms) || ms < 0) return;
-  recentLatencies.push(ms);
-  if (recentLatencies.length > LATENCY_WINDOW) recentLatencies.shift();
-}
-function latencyStats() {
-  if (recentLatencies.length === 0)
-    return { avgLatencyMs: null, p95LatencyMs: null };
-  const sum = recentLatencies.reduce((a, b) => a + b, 0);
-  const avg = Math.round(sum / recentLatencies.length);
-  const sorted = [...recentLatencies].sort((a, b) => a - b);
-  const idx = Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95));
-  return { avgLatencyMs: avg, p95LatencyMs: sorted[idx] };
-}
-// Broadcast aggregated latency to all clients every 5s.
-setInterval(() => {
-  const stats = latencyStats();
-  if (stats.avgLatencyMs !== null) {
-    broadcast({ type: "latencyStats", stats });
-    console.log(
-      `[Latency] avg ${stats.avgLatencyMs}ms p95 ${stats.p95LatencyMs}ms (n=${recentLatencies.length})`,
-    );
-  }
-}, 5000);
-
-setInterval(async () => {
-  const total = parseFloat(await redis.get("stats:total_distance")) || 0;
-  broadcast({ type: "totalDistanceUpdate", totalDistanceAll: total });
-}, 5000);
-// DEBUG ENDPOINT - remove before production
-app.get("/debug", async (req, res) => {
-  const keys = await redis.keys("taxi:speed:*");
-  const result = {};
-  for (const key of keys) {
-    result[key] = await redis.hgetall(key);
-  }
-  res.json(result);
-});
 // Wrapper for taxi-api
 app.get("/taxis/:id/locations", async (req, res) => {
   const { id } = req.params;
@@ -95,6 +47,120 @@ app.get("/taxis/:id/locations", async (req, res) => {
   }
 });
 
+//Events Brodcast and snapshot
+
+const snapshot = {
+  taxis: [],
+  stats: {
+    activeTaxiCount: 0,
+    totalDistanceAll: 0,
+    avgLatencyMs: null,
+    p95LatencyMs: null,
+  },
+  speedingIncidents: [],
+  areaViolations: [],
+  heatmapCells: {},
+};
+
+const taxiMap = new Map();
+const areaViolationIndex = new Set();
+
+// on conect
+wss.on("connection", (ws) => {
+  ws.send(
+    JSON.stringify({
+      type: "snapshot",
+      ...snapshot,
+    }),
+  );
+});
+
+// Rolling window of recent end-to-end latencies (ms) for the dashboard health panel.
+// Each taxi-processed event carries ingested_at (provider publish time); latency is
+// now - ingested_at, measured the moment the backend receives the event from Kafka.
+const recentLatencies = [];
+const LATENCY_WINDOW = 500;
+
+function recordLatency(ms) {
+  if (!Number.isFinite(ms) || ms < 0) return;
+
+  recentLatencies.push(ms);
+
+  if (recentLatencies.length > LATENCY_WINDOW) {
+    recentLatencies.shift();
+  }
+}
+
+function updateLatencyStats() {
+  if (recentLatencies.length === 0) {
+    snapshot.stats.avgLatencyMs = null;
+    snapshot.stats.p95LatencyMs = null;
+    return;
+  }
+
+  const sum = recentLatencies.reduce((a, b) => a + b, 0);
+  const sorted = [...recentLatencies].sort((a, b) => a - b);
+
+  snapshot.stats.avgLatencyMs = Math.round(sum / recentLatencies.length);
+  snapshot.stats.p95LatencyMs = sorted[Math.floor(0.95 * (sorted.length - 1))];
+}
+
+//Init snapshot from Redis
+//update from redice once
+// Load initial taxi state from Redis (called once during startup)
+async function loadInitialSnapshot() {
+  const keys = await redis.keys("taxi:speed:*");
+
+  let totalDistanceAll = 0;
+
+  for (const key of keys) {
+    const data = await redis.hgetall(key);
+
+    if (!data.latitude || !data.longitude) continue;
+
+    const taxi = {
+      taxi_id: key.split(":")[2],
+      latitude: parseFloat(data.latitude),
+      longitude: parseFloat(data.longitude),
+      speed: parseFloat(data.speed),
+      distance: parseFloat(data.distance),
+      timestamp: data.timestamp,
+      isSpeeding: data.isSpeeding === "true",
+      averageSpeed: parseFloat(data.averageSpeed),
+      totalDistance: parseFloat(data.totalDistance),
+      lastMoved:
+        data.lastMoved && data.lastMoved !== "null" ? data.lastMoved : "",
+      isParking: data.isParking === "true",
+    };
+
+    taxiMap.set(taxi.taxi_id, taxi);
+    totalDistanceAll += taxi.totalDistance || 0;
+  }
+
+  snapshot.taxis = [...taxiMap.values()];
+  snapshot.stats.activeTaxiCount = snapshot.taxis.length;
+  snapshot.stats.totalDistanceAll = totalDistanceAll;
+}
+
+// Broadcast aggregated latency and total distance to all clients every 5s.
+setInterval(async () => {
+  updateLatencyStats();
+  const stats = snapshot.stats;
+  snapshot.stats.avgLatencyMs = stats.avgLatencyMs;
+  snapshot.stats.p95LatencyMs = stats.p95LatencyMs;
+  if (stats.avgLatencyMs !== null) {
+    broadcast({ type: "latencyStats", stats });
+    console.log(
+      `[Latency] avg ${stats.avgLatencyMs}ms p95 ${stats.p95LatencyMs}ms (n=${recentLatencies.length})`,
+    );
+  }
+  const total = parseFloat(await redis.get("stats:total_distance")) || 0;
+  broadcast({ type: "totalDistanceUpdate", totalDistanceAll: total });
+}, 5000);
+setInterval(async () => {
+  broadcast({ type: "heatmapUpdate", cellData: snapshot.heatmapCells });
+}, 1000 * 30);
+
 function broadcast(payload) {
   const msg = JSON.stringify(payload);
   wss.clients.forEach((client) => {
@@ -102,144 +168,133 @@ function broadcast(payload) {
   });
 }
 
-// Read full state from Redis — only called when a new client connects
-//TODO: add a redis for taxi-heatmap and taxi-area-violations so we can send a snapshot of those too also figure out better parameter for the heatmap component ocpancy also make it togabl.
-async function buildSnapshot() {
-  const keys = await redis.keys("taxi:speed:*");
-  const taxis = [];
-  const totalDistanceAll = parseFloat(await redis.get("stats:total_distance")) || 0;
-  for (const key of keys) {
-    const data = await redis.hgetall(key);
-    if (data && data.latitude && data.longitude) {
-      taxis.push({
-        taxi_id: key.split(":")[2],
-        latitude: parseFloat(data.latitude),
-        longitude: parseFloat(data.longitude),
-        speed: parseFloat(data.speed),
-        distance: parseFloat(data.distance),
-        timestamp: data.timestamp,
-        isSpeeding: data.isSpeeding === "true",
-        averageSpeed: parseFloat(data.averageSpeed),
-        totalDistance: parseFloat(data.totalDistance),
-        lastMoved:
-          data.lastMoved && data.lastMoved !== "null" ? data.lastMoved : "",
-        isParking: data.isParking === "true",
-      });
-    }
-  }
-  return { taxis, totalDistanceAll };
-}
-
-// New client connects — send full snapshot from Redis so map is not empty
-wss.on("connection", async (ws) => {
-  const { taxis, totalDistanceAll } = await buildSnapshot();
-  ws.send(
-    JSON.stringify({
-      type: "snapshot",
-      taxis,
-      stats: {
-        activeTaxiCount: taxis.length,
-        totalDistanceAll,
-        ...latencyStats(),
-      },
-      speedingIncidents,
-      areaViolations,
-    }),
-  );
-});
-
-// Start Kafka consumers for taxi-processed, taxi-speeding, and taxi-area-violations topics
-// TODO why not use redice for taxi data?? isnt is double work to have both kafka and redis?
+//Updates Snapshots and broadcasts allerts
 async function startConsumers() {
-  // Consumer for taxi-processed — broadcast single taxi update, no Redis scan
+  // Taxi updates
   const processedConsumer = kafka.consumer({ groupId: "backend-processed" });
   await processedConsumer.connect();
   await processedConsumer.subscribe({
     topic: "taxi-processed",
     fromBeginning: false,
   });
+
   await processedConsumer.run({
     eachMessage: async ({ message }) => {
       const event = JSON.parse(message.value.toString());
-      // End-to-end latency: now minus the provider ingestion timestamp.
-      if (event.ingested_at) recordLatency(Date.now() - event.ingested_at);
-      broadcast({
-        type: "taxiUpdate",
-        taxi: {
-          taxi_id: String(event.taxi_id),
-          latitude: event.latitude,
-          longitude: event.longitude,
-          speed: event.speed,
-          distance: event.totalDistance,
-          timestamp: event.timestamp,
-          isSpeeding: event.isSpeeding,
-          averageSpeed: event.averageSpeed,
-          totalDistance: event.totalDistance,
-          speedingStateChanged: event.speedingStateChanged,
-          lastMoved: event.lastMoved ?? "",
-          isParking: event.isParking ?? false,
-        },
-      });
+
+      if (event.ingested_at) {
+        recordLatency(Date.now() - event.ingested_at);
+      }
+
+      const taxi = {
+        taxi_id: String(event.taxi_id),
+        latitude: event.latitude,
+        longitude: event.longitude,
+        speed: event.speed,
+        distance: event.totalDistance,
+        timestamp: event.timestamp,
+        isSpeeding: event.isSpeeding,
+        averageSpeed: event.averageSpeed,
+        totalDistance: event.totalDistance,
+        speedingStateChanged: event.speedingStateChanged,
+        lastMoved: event.lastMoved ?? "",
+        isParking: event.isParking ?? false,
+      };
+      broadcast({ type: "taxiUpdate", taxi });
+
+      taxiMap.set(taxi.taxi_id, taxi);
+
+      snapshot.taxis = [...taxiMap.values()];
+      snapshot.stats.activeTaxiCount = snapshot.taxis.length;
+      snapshot.stats.totalDistanceAll = snapshot.taxis.reduce(
+        (sum, taxi) => sum + (taxi.totalDistance || 0),
+        0,
+      );
     },
   });
 
-  // Consumer for taxi-speeding — immediate alert broadcast
+  // Speeding incidents
   const speedingConsumer = kafka.consumer({ groupId: "backend-speeding" });
   await speedingConsumer.connect();
   await speedingConsumer.subscribe({
     topic: "taxi-speeding",
     fromBeginning: false,
   });
+
   await speedingConsumer.run({
     eachMessage: async ({ message }) => {
-      speedingIncidents = JSON.parse(message.value.toString());
+      snapshot.speedingIncidents = JSON.parse(message.value.toString());
       broadcast({ type: "speedingAlert", speedingIncidents });
     },
   });
 
-  // Consumer for taxi-area-violations — immediate alert broadcast
+  // Area violations
   const violationsConsumer = kafka.consumer({ groupId: "backend-violations" });
   await violationsConsumer.connect();
   await violationsConsumer.subscribe({
     topic: "taxi-area-violations",
     fromBeginning: false,
   });
-  violationsConsumer.run({
+
+  await violationsConsumer.run({
     eachMessage: async ({ message }) => {
       const newList = JSON.parse(message.value.toString());
-      const newIds = new Set(newList.map(v => String(v.taxi_id)));
+      const newIds = new Set(newList.map((v) => String(v.taxi_id)));
 
       // detect transitions by diffing
       for (const id of newIds) {
         if (!areaViolationIndex.has(id)) {
-          broadcast({ type: 'ooaNotification', trigger: 'entered', taxiId: id });
+          broadcast({
+            type: "ooaNotification",
+            trigger: "entered",
+            taxiId: id,
+          });
         }
       }
       for (const id of areaViolationIndex) {
         if (!newIds.has(id)) {
-          broadcast({ type: 'ooaNotification', trigger: 'returned', taxiId: id });
+          broadcast({
+            type: "ooaNotification",
+            trigger: "returned",
+            taxiId: id,
+          });
         }
       }
 
-      areaViolations = newList;
+      snapshot.areaViolations = newList;
       areaViolationIndex.clear();
-      newIds.forEach(id => areaViolationIndex.add(id));
+      newIds.forEach((id) => areaViolationIndex.add(id));
 
-      broadcast({ type: 'areaViolation', areaViolations });
-    }
+      broadcast({
+        type: "areaViolation",
+        areaViolations: snapshot.areaViolations,
+      });
+    },
   });
+
+  // Heatmap cells
   const cellConsumer = kafka.consumer({ groupId: "backend-cell" });
   await cellConsumer.connect();
   await cellConsumer.subscribe({
     topic: "taxi-heatmap",
     fromBeginning: false,
   });
+
   await cellConsumer.run({
     eachMessage: async ({ message }) => {
-      const cellData = JSON.parse(message.value.toString());
-      broadcast({ type: "heatmapUpdate", cellData });
+      const cell = JSON.parse(message.value.toString());
+
+      if (cell.cellId) {
+        snapshot.heatmapCells[cell.cellId] = cell;
+      }
     },
   });
 }
 
-startConsumers().catch(console.error);
+async function main() {
+  await loadInitialSnapshot();
+  await startConsumers();
+  console.log("Kafka consumers started");
+}
+
+main().catch(console.error);

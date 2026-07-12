@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeW
 import java.time.Duration;
 
 public class HeatmapPipeline {
-    private static final Duration CHECK_INTERVAL = Duration.ofMinutes(3);
+    private static final Duration CHECK_INTERVAL = Duration.ofMinutes(2);
     private static final Duration WINDOW_SIZE = Duration.ofMinutes(10);
 
     public static DataStream<HeatmapCell> build(DataStream<TaxiSpeed> locationStream) {

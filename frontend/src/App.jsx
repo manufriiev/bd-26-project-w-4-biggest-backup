@@ -14,6 +14,12 @@ import { DebugAlerts } from "./components/DebugAlerts.jsx";
 
 import { getOpacity, normalizeAlarmTaxi } from "./utils/helper.js";
 
+const LATENCY_TREND_STYLES = {
+  up: { background: "#FAECE7", color: "#993C1D", border: "#F3B5A1", arrow: "↑" },
+  down: { background: "#E6F6ED", color: "#1F7A43", border: "#8FD5AE", arrow: "↓" },
+  stable: { background: "#F3F4F6", color: "#555", border: "#D1D5DB", arrow: "→" },
+};
+
 function App() {
   const now = useNow();
   const debugLog = useDebugLog();
@@ -153,6 +159,8 @@ function App() {
     [pathLocations],
   );
 
+  const latencyStyle = LATENCY_TREND_STYLES[latencyTrend] ?? LATENCY_TREND_STYLES.stable;
+
   return (
     <div
       style={{
@@ -246,18 +254,23 @@ function App() {
             🗺️ {areaViolations.length} area violations
           </button>
         )}
-        <span style={{ fontSize: 13, color: "#555" }}>
-          <strong>Latency:</strong>{" "}
+        <span
+          style={{
+            fontSize: 13,
+            fontWeight: 500,
+            borderRadius: 4,
+            padding: "2px 8px",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
+            border: `1px solid ${latencyStyle.border}`,
+            background: latencyStyle.background,
+            color: latencyStyle.color,
+          }}
+        >
+          <strong>Latency:</strong>
           {latency !== null ? `${latency.toFixed(2)}s` : "N/A"}
-          {latencyTrend === "up" && (
-            <span style={{ color: "#dc2626", marginLeft: 4 }}>↑</span>
-          )}
-          {latencyTrend === "down" && (
-            <span style={{ color: "#16a34a", marginLeft: 4 }}>↓</span>
-          )}
-          {latencyTrend === "stable" && (
-            <span style={{ color: "#6b7280", marginLeft: 4 }}>→</span>
-          )}
+          {latencyTrend && <span style={{ fontWeight: 700 }}>{latencyStyle.arrow}</span>}
         </span>
         {pathError && (
           <span

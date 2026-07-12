@@ -34,8 +34,13 @@ export function useDebugLog(maxEntries = DEBUG_LOG_MAX_ENTRIES) {
   );
 
   const toggleFilter = useCallback((type) => {
-    setFilters((prev) => ({ ...prev, [type]: !prev[type] }));
-  }, []);
+        setFilters((prev) => {
+            const onlyThisActive = prev[type] && Object.values(prev).filter(Boolean).length === 1;
+            if (onlyThisActive) {
+                return Object.fromEntries(Object.keys(prev).map(k => [k, true]));
+            }
+            return Object.fromEntries(Object.keys(prev).map(k => [k, k === type]));
+        });}, []);
 
   const clear = useCallback(() => {
     setEntries([]);

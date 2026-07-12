@@ -9,8 +9,9 @@ import { TAXI_UPDATE_FLUSH_INTERVAL_MS, WS_LINK } from "../config";
  * Side-effecting concerns that other hooks care about (debug logging, path
  * trails) are NOT handled here — instead this hook accepts optional
  * callbacks (`onSnapshot`, `onTaxiUpdate`, `onSpeedingAlert`,
- * `onAreaViolation`) that fire on each relevant message, so callers can
- * wire it up to `useDebugLog` / `useTaxiPath` themselves.
+ * `onAreaViolation`, `onOoaNotification`) that fire on each relevant
+ * message, so callers can wire it up to `useDebugLog` / `useTaxiPath`
+ * themselves.
  *
  * @param {string} wsUrl
  * @param {object} callbacks
@@ -18,6 +19,7 @@ import { TAXI_UPDATE_FLUSH_INTERVAL_MS, WS_LINK } from "../config";
  * @param {(taxi: object) => void} [callbacks.onTaxiUpdate]
  * @param {(incidents: object[]) => void} [callbacks.onSpeedingAlert]
  * @param {(violations: object[]) => void} [callbacks.onAreaViolation]
+ * @param {(data: object) => void} [callbacks.onOoaNotification]
  */
 export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
   // Keep latest callbacks without re-opening the socket when they change
@@ -34,17 +36,14 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
   const [status, setStatus] = useState("Connecting...");
 
   const [latency, setLatency] = useState(null);
-  // const [latencyHistory, setLatencyHistory] = useState([]);// TODO: latencyHistory is unused
-  const [setLatencyHistory] = useState([]);
+  // Rolling window of recent latency samples, used only to derive latencyTrend below.
+  const [, setLatencyHistory] = useState([]);
   const [latencyTrend, setLatencyTrend] = useState(null);
   const [heatmapCells, setHeatmapCells] = useState({});
   const [totalDistanceAll, setTotalDistanceAll] = useState(null);
 
-  // TODO: this batching path is currently dead code — nothing ever writes // think might be fixed?
-  // into pendingUpdates.current, so the flush interval below never has
-  // anything to flush. taxiUpdate messages apply immediately instead (see
-  // below). Kept as-is to preserve existing behavior; either wire
-  // taxiUpdate through this queue, or remove the flush interval.
+  // taxiUpdate messages are queued here and applied in one batch on the
+  // interval below, instead of triggering a re-render per message.
   const pendingUpdates = useRef({});
 
   useEffect(() => {
@@ -89,6 +88,7 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
           setAreaViolations(data.areaViolations || []);
           setTotalDistanceAll(data.stats?.totalDistanceAll ?? null);
           cb.onSnapshot?.(data);
+          setHeatmapCells(data.heatmapCells || {});
 
           if (data.stats && data.stats.avgLatencyMs) {
             const initialLatency = data.stats.avgLatencyMs / 1000;
@@ -97,8 +97,9 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
           }
         } else if (data.type === "taxiUpdate") {
           const t = data.taxi;
-          pendingUpdates.current[t.taxi_id] = t; //flush fix
+          pendingUpdates.current[t.taxi_id] = t; // queued for the batched flush above
           cb.onTaxiUpdate?.(t);
+
         } else if (data.type === "latencyStats") {
           const newLatency = data.stats.avgLatencyMs / 1000; // ms -> s
           setLatency(newLatency);
@@ -121,25 +122,27 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
             }
             return newHistory;
           });
+
         } else if (data.type === "speedingAlert") {
           const incidents = data.speedingIncidents || [];
           setSpeedingIncidents(incidents);
           cb.onSpeedingAlert?.(incidents);
+
         } else if (data.type === "areaViolation") {
           const violations = data.areaViolations || [];
           setAreaViolations(violations);
           cb.onAreaViolation?.(violations);
+
         } else if (data.type === "heatmapUpdate") {
-          const cell = data.cellData;
-          setHeatmapCells((prev) => ({ ...prev, [cell.cellId]: cell }));
-        }
-        else if (data.type === "totalDistanceUpdate") {
+          const cells = data.cellData;
+          setHeatmapCells(cells);
+
+        } else if (data.type === "totalDistanceUpdate") {
           setTotalDistanceAll(data.totalDistanceAll);
-        }
-        else if (data.type === "ooaNotification") {
+
+        } else if (data.type === "ooaNotification") {
           cb.onOoaNotification?.(data);
         }
-
       } catch (error) {
         console.error("Error parsing WebSocket data:", error);
       }
