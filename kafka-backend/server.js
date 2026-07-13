@@ -73,10 +73,6 @@ const areaViolationIndex = new Set();
 function rebuildSnapshotFromTaxiMap() {
   snapshot.taxis = [...taxiMap.values()];
   snapshot.stats.activeTaxiCount = snapshot.taxis.length;
-  snapshot.stats.totalDistanceAll = snapshot.taxis.reduce(
-    (sum, taxi) => sum + (taxi.totalDistance || 0),
-    0,
-  );
 }
 
 function broadcastSnapshot() {
@@ -231,10 +227,7 @@ async function startConsumers() {
   await processedConsumer.run({
     eachMessage: async ({ message }) => {
       const event = JSON.parse(message.value.toString());
-
-      if (event.ingested_at) {
-        recordLatency(Date.now() - event.ingested_at);
-      }
+      if (event.ingested_at) recordLatency(Date.now() - event.ingested_at);
 
       const taxi = {
         taxi_id: String(event.taxi_id),
@@ -250,16 +243,10 @@ async function startConsumers() {
         lastMoved: event.lastMoved ?? "",
         isParking: event.isParking ?? false,
       };
-      broadcast({ type: "taxiUpdate", taxi });
 
+      broadcast({ type: "taxiUpdate", taxi });
       taxiMap.set(taxi.taxi_id, taxi);
       taxiLastSeenAt.set(taxi.taxi_id, Date.now());
-
-      rebuildSnapshotFromTaxiMap();
-
-      if (pruneStaleTaxis()) {
-        broadcastSnapshot();
-      }
     },
   });
 
@@ -348,6 +335,7 @@ async function main() {
   await loadInitialSnapshot();
   setInterval(() => {
     if (pruneStaleTaxis()) {
+      rebuildSnapshotFromTaxiMap();
       broadcastSnapshot();
     }
   }, 60 * 1000);
