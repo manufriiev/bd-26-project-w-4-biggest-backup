@@ -136,6 +136,17 @@ export function useTaxiSocket(wsUrl = WS_LINK, callbacks = {}) {
           setTotalDistanceAll(data.totalDistanceAll);
         } else if (data.type === "ooaNotification") {
           cb.onOoaNotification?.(data);
+        } else if (data.type === "taxisRemoved") {
+          setTaxiMap(prev => {
+            const next = { ...prev };
+            data.taxiIds.forEach(id => delete next[id]);
+            return next;
+          });
+          setLastSeen(prev => {
+            const next = { ...prev };
+            data.taxiIds.forEach(id => delete next[id]);
+            return next;
+          });
         }
       } catch (error) {
         console.error("Error parsing WebSocket data:", error);

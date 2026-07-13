@@ -98,7 +98,7 @@ function pruneStaleTaxis(now = Date.now()) {
     staleTaxiIds.push(...oldestTaxiIds);
   }
 
-  if (staleTaxiIds.length === 0) return false;
+  if (staleTaxiIds.length === 0) return [];
 
   const uniqueTaxiIds = new Set(staleTaxiIds);
   for (const taxiId of uniqueTaxiIds) {
@@ -107,7 +107,7 @@ function pruneStaleTaxis(now = Date.now()) {
   }
 
   rebuildSnapshotFromTaxiMap();
-  return true;
+  return [...uniqueTaxiIds];
 }
 
 // on conect
@@ -334,9 +334,9 @@ async function startConsumers() {
 async function main() {
   await loadInitialSnapshot();
   setInterval(() => {
-    if (pruneStaleTaxis()) {
-      rebuildSnapshotFromTaxiMap();
-      broadcastSnapshot();
+    const removed = pruneStaleTaxis();
+    if (removed.length > 0) {
+      broadcast({ type: "taxisRemoved", taxiIds: removed });
     }
   }, 60 * 1000);
   await startConsumers();
