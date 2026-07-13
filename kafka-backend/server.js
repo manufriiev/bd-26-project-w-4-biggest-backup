@@ -15,6 +15,10 @@ const server = app.listen(5001, () =>
 const wss = new WebSocketServer({ server });
 
 const kafka = new Kafka({ brokers: ["kafka:9092"] });
+const TAXI_SNAPSHOT_TTL_MS =
+  Number(process.env.TAXI_SNAPSHOT_TTL_MS) || 15 * 60 * 1000;
+const TAXI_SNAPSHOT_MAX_SIZE =
+  Number(process.env.TAXI_SNAPSHOT_MAX_SIZE) || 5000;
 
 // Wrapper for taxi-api
 app.get("/taxis/:id/locations", async (req, res) => {
@@ -63,7 +67,52 @@ const snapshot = {
 };
 
 const taxiMap = new Map();
+const taxiLastSeenAt = new Map();
 const areaViolationIndex = new Set();
+
+function rebuildSnapshotFromTaxiMap() {
+  snapshot.taxis = [...taxiMap.values()];
+  snapshot.stats.activeTaxiCount = snapshot.taxis.length;
+  snapshot.stats.totalDistanceAll = snapshot.taxis.reduce(
+    (sum, taxi) => sum + (taxi.totalDistance || 0),
+    0,
+  );
+}
+
+function broadcastSnapshot() {
+  broadcast({ type: "snapshot", ...snapshot });
+}
+
+function pruneStaleTaxis(now = Date.now()) {
+  const staleTaxiIds = [];
+
+  for (const [taxiId, seenAt] of taxiLastSeenAt.entries()) {
+    if (now - seenAt > TAXI_SNAPSHOT_TTL_MS) {
+      staleTaxiIds.push(taxiId);
+    }
+  }
+
+  if (taxiMap.size > TAXI_SNAPSHOT_MAX_SIZE) {
+    const overflow = taxiMap.size - TAXI_SNAPSHOT_MAX_SIZE;
+    const oldestTaxiIds = [...taxiLastSeenAt.entries()]
+      .sort((a, b) => a[1] - b[1])
+      .slice(0, overflow)
+      .map(([taxiId]) => taxiId);
+
+    staleTaxiIds.push(...oldestTaxiIds);
+  }
+
+  if (staleTaxiIds.length === 0) return false;
+
+  const uniqueTaxiIds = new Set(staleTaxiIds);
+  for (const taxiId of uniqueTaxiIds) {
+    taxiMap.delete(taxiId);
+    taxiLastSeenAt.delete(taxiId);
+  }
+
+  rebuildSnapshotFromTaxiMap();
+  return true;
+}
 
 // on conect
 wss.on("connection", (ws) => {
@@ -134,11 +183,11 @@ async function loadInitialSnapshot() {
     };
 
     taxiMap.set(taxi.taxi_id, taxi);
+    taxiLastSeenAt.set(taxi.taxi_id, Date.now());
     totalDistanceAll += taxi.totalDistance || 0;
   }
 
-  snapshot.taxis = [...taxiMap.values()];
-  snapshot.stats.activeTaxiCount = snapshot.taxis.length;
+  rebuildSnapshotFromTaxiMap();
   snapshot.stats.totalDistanceAll = totalDistanceAll;
 }
 
@@ -204,13 +253,13 @@ async function startConsumers() {
       broadcast({ type: "taxiUpdate", taxi });
 
       taxiMap.set(taxi.taxi_id, taxi);
+      taxiLastSeenAt.set(taxi.taxi_id, Date.now());
 
-      snapshot.taxis = [...taxiMap.values()];
-      snapshot.stats.activeTaxiCount = snapshot.taxis.length;
-      snapshot.stats.totalDistanceAll = snapshot.taxis.reduce(
-        (sum, taxi) => sum + (taxi.totalDistance || 0),
-        0,
-      );
+      rebuildSnapshotFromTaxiMap();
+
+      if (pruneStaleTaxis()) {
+        broadcastSnapshot();
+      }
     },
   });
 
@@ -297,6 +346,11 @@ async function startConsumers() {
 
 async function main() {
   await loadInitialSnapshot();
+  setInterval(() => {
+    if (pruneStaleTaxis()) {
+      broadcastSnapshot();
+    }
+  }, 60 * 1000);
   await startConsumers();
   console.log("Kafka consumers started");
 }
